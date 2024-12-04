@@ -373,6 +373,37 @@
 
 
 
+<style>
+
+
+    /* <!-- gallery 3d images --> */
+
+
+
+    .gallary_container {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+    }
+
+
+
+
+
+    model-viewer {
+        width: 100%;
+        height: 80vh;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+    }
+
+    /* <!--  gallery 3d images--> */
 
 
 
@@ -380,8 +411,617 @@
 
 
 
-{% block content %}
-{% endblock %}
+    .section {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding: 20px
+    }
+
+    .category-header {
+        position: relative;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        display: inline-flex;
+        /* Changed to inline-flex to only cover the text */
+        align-items: center;
+        border: 2px solid #ebf378;
+        /* Added border for category header text */
+        border-radius: 5px;
+        padding: 5px;
+        background-color:#45c73c;
+        /* Optional: added padding for better spacing */
+    }
+
+    .category-header::after {
+        content: '▼';
+        font-size: 1rem;
+        margin-left: 10px;
+        color: #555555;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(300px, 1fr);
+
+        gap: 20px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 10px;
+        /* Prevent content cutoff when scrolling */
+    }
+
+    /* Hide scrollbar */
+    .cards-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cards-container {
+        -ms-overflow-style: none;
+        /* Internet Explorer 10+ */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .card {
+        max-width: 400px;
+        border-radius: 10px;
+        border: 1px solid #d5d676;
+        overflow: hidden;
+        text-align: center;
+        background-color: white;
+    }
+
+    .card img {
+/*        width: 100%;*/
+        height: 250px;
+    }
+
+    .card-content h3 {
+        font-size: 1.1rem;
+        margin: 5px;
+        color: #333;
+    }
+
+    .card-content ul {
+        list-style: none;
+        text-align: left;
+        margin: 0 20px;
+    }
+
+    .card-content ul li {
+        margin: 5px 0;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .card-content ul li:before {
+        content: "●";
+        color: #111216;
+        font-size: 0.8rem;
+        margin-right: 10px;
+    }
+
+    .card a {
+        margin: 15px;
+        display: inline-block;
+        background-color: #9b792f;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .card a:hover {
+        background-color: #0056b3;
+    }
+    .watermark {
+        display:none;
+        visibility: hidden; /* Hides but maintains the space of the watermark */
+    }
+    .location {
+        width: 100%;
+
+        margin: 20px auto;
+/*        border: 2px solid #ccc;*/
+/*        border-radius: 10px;*/
+        overflow: hidden;
+/*        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+    }
+
+    .location iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+    }
+
+    .location-title {
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+
+</style>
+
+
+
+
+<!-- gallery 3d images -->
+
+
+
+<div class="gallary_container">
+    <h3>
+        visite more fo viewer
+    </h3>
+
+    <model-viewer
+            id="mainViewer"
+            src="{% if models %}{{ models.0.model_file.url }}{% endif %}"
+            alt="3D Model"
+            alt="3D Model"
+            auto-rotate
+            camera-controls
+            auto-rotate-delay="0"
+            rotation-per-second="30deg"
+            min-camera-orbit="auto auto 2m"
+            max-camera-orbit="auto auto 10m"
+            field-of-view="50deg"
+            background-color="#f0f0f0"
+            style="width: 100%; height: 500px;">
+    </model-viewer>
+
+    <!-- Fullscreen toggle button -->
+    <button id="fullscreenButton" onclick="toggleFullscreen()"> <i  class="fas fa-expand"></i>
+        Toggle Fullscreen</button>
+
+    <!-- Optional: Add a container to manage fullscreen display -->
+    <div id="model-container" style="position: relative; display: inline-block;">
+        <!-- Model viewer will go here, styled to adjust size dynamically -->
+    </div>
+
+
+
+
+
+    <h3>
+        visite more fo viewer
+    </h3>
+
+</div>
+
+
+<!--  gallery 3d images-->
+
+
+
+
+<!-- Category Header -->
+<section class="section" id="first_section">
+    <div class="category-header">Luxury Rooms</div>
+
+    <!-- Horizontal Scrollable Cards -->
+    <div class="cards-container">
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</section>
+
+
+<section class="section" id="second_section">
+    <div class="category-header">Luxury Rooms</div>
+
+    <!-- Horizontal Scrollable Cards -->
+    <div class="cards-container">
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</section>
+
+
+
+
+<section class="section" id="second_section">
+    <div class="category-header">Luxury Rooms</div>
+
+    <!-- Horizontal Scrollable Cards -->
+    <div class="cards-container">
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</section>
+
+
+
+
+<section class="section" id="second_section">
+    <div class="category-header">Luxury Rooms</div>
+
+    <!-- Horizontal Scrollable Cards -->
+    <div class="cards-container">
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/modern-bedroom-interior_1150-11470.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Celebrate Modern Comfort</h3>
+                <ul>
+                    <li>Modern design</li>
+                    <li>King-size bed</li>
+                    <li>Ocean View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://img.freepik.com/free-photo/cozy-bedroom-interior_1150-12580.jpg" alt="Room Image">
+            <div class="card-content">
+                <h3>Cozy Retreat for Families</h3>
+                <ul>
+                    <li>Family-friendly</li>
+                    <li>2 Queen beds</li>
+                    <li>Park View</li>
+                </ul>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">Enquire Now</a>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</section>
+
+
+
+<section class="location">
+
+    <div class="location-title">{{base_data_address}}</div>
+    <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509453!2d-122.41941618468167!3d37.77492977975961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064a02f51ab%3A0xa7e92e354e680c6a!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2sin!4v1616122254735!5m2!1sen!2sin"
+            allowfullscreen=""
+            loading="lazy">
+    </iframe>
+</section>
+
+
+
+
+
+<script>
+
+</script>
+
+
+
+<script>
+    function toggleFullscreen() {
+        const viewer = document.querySelector('#mainViewer');
+
+        // Check if the model-viewer is in fullscreen mode
+        if (!document.fullscreenElement) {
+            // If not, enter fullscreen
+            if (viewer.requestFullscreen) {
+                viewer.requestFullscreen();
+            } else if (viewer.webkitRequestFullscreen) { // Safari
+                viewer.webkitRequestFullscreen();
+            } else if (viewer.msRequestFullscreen) { // IE/Edge
+                viewer.msRequestFullscreen();
+            }
+        } else {
+            // If in fullscreen, exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { // Safari
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+        }
+    }
+</script>
+
+
+
+
+
+
+
+<!-- {% block content %}
+{% endblock %} -->
 <!-- Floating WhatsApp Icon -->
 
 <a href="https://wa.me/{{base_data_whatsapp_number_with_countrycode}}" class="floating-whatsapp" target="_blank"
