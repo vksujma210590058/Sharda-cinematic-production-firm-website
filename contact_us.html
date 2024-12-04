@@ -1,0 +1,259 @@
+
+
+
+
+
+
+{% extends "base.html" %}
+{% block content %}
+<style>
+    /* General Styling */
+
+
+    .contact-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        /* background: #fff; */
+        border-radius: 10px;
+        /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
+        text-align: center;
+        overflow: hidden;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    header h1 {
+        font-size: 2.8rem;
+        color: #007BFF;
+        margin-bottom: 10px;
+        animation: slideIn 1s ease-in-out;
+    }
+
+    header p {
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    /* Contact Card Styling */
+    .contact-card {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+
+    .info-item {
+        flex: 1;
+        margin: 10px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .info-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-item h3 {
+        font-size: 1.4rem;
+        color: #007BFF;
+        margin-bottom: 10px;
+    }
+
+    .info-item p a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .info-item p a:hover {
+        text-decoration: underline;
+    }
+
+    .icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    /* Form Styling */
+    .contact-form {
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .contact-form label {
+        display: block;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .contact-form button {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .contact-card {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-item {
+            margin: 10px 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 2rem;
+        }
+
+        .contact-form button {
+            font-size: 1rem;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="contact-container">
+    <header>
+        <h3>Contact Us</h3>
+        <p>We’re here to help! Reach out to us anytime.</p>
+    </header>
+
+    <div class="contact-card">
+        <div class="info-item">
+            <div class="icon"><i class="fas fa-map-marker-alt"  style="color:#08d37e"></i></div>
+            <h3>Address</h3>
+            <p>{{base_data_address}}</p>
+        </div>
+        <div class="info-item">
+            <div class="icon"><i>&#128231;</i></div>
+            <h3>Email</h3>
+            <p><a href="mailto:{{base_data_gmail}}">{{base_data_gmail}}</a></p>
+        </div>
+        <div class="info-item">
+            <div class="icon"><i>&#128222;</i></div>
+            <h3>Phone</h3>
+            <p><a href="tel:{{base_data_mobile_number_with_countrycode}}">{{base_data_mobile_number_with_countrycode}}</a></p>
+        </div>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Type your message here..." required></textarea>
+        </div>
+        <button type="submit" id="submitBtn">Send Message</button>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+    <script>
+    // Select the form and button
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Add event listener to handle form submission
+    form.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Get the form values
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Validate fields (Optional)
+        if (!name || !email || !message) {
+            alert('Please fill out all fields!');
+            return;
+        }
+
+        // Construct the WhatsApp URL
+        const phone = '{{base_data_mobile_number_with_countrycode}}'; // Replace with your WhatsApp number
+        const whatsappMessage = `Hello, my name is ${name}. My email is ${email}. Here is my message: ${message}`;
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(whatsappMessage)}`;
+
+        // Open WhatsApp in a new tab
+        window.open(whatsappUrl, '_blank');
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    .gallary_container {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    max-width: 900px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.model-thumbnail {
+    width: 100%;
+    height: 200px; /* Fixed height for uniform appearance */
+    object-fit: cover; /* Maintains aspect ratio and fills the area */
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow effect */
+}
+
+    .model-thumbnail:hover {
+        transform: scale(1.05);
+    }
+    model-viewer {
+        width: 100%;
+        max-width: 600px;
+        height: 70vh;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+    }
+    .embed_3d{
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+</style>
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer"></script>
+
+
+<div class="gallary_container">
+
+<!-- Main 3D Model Viewer -->
+    <model-viewer
+            id="mainViewer"
+            src="{% if models %}{{ models.0.model_file.url }}{% endif %}"
+            alt="3D Model"
+            auto-rotate
+            camera-controls
+            background-color="#f0f0f0"
+            style="width: 100%; height: 500px;"
+            fullscreen
+    ></model-viewer>
+
+    <!-- Fullscreen toggle button -->
+    <button id="fullscreenButton" onclick="toggleFullscreen()"> <i  class="fas fa-expand"></i>
+        Toggle Fullscreen</button>
+
+    <!-- Optional: Add a container to manage fullscreen display -->
+    <div id="model-container" style="position: relative; display: inline-block;">
+        <!-- Model viewer will go here, styled to adjust size dynamically -->
+    </div>
+
+
+    <!-- Gallery of Smaller Models -->
+<div class="gallery">
+    {% for model in models %}
+    <img src="{{ model.thumbnail.url }}" class="model-thumbnail" alt="{{ model.name }}" onclick="changeModel('{{ model.model_file.url }}')">
+    {% endfor %}
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!--embaded models-->
+<div  clas="embed_3d" style="
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));" >
+<div class="sketchfab-embed-wrapper"> <iframe title="" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/3a225d24d578417598828c68ad569bba/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/kichen-001-3a225d24d578417598828c68ad569bba?utm_medium=embed&utm_campaign=share-popup&utm_content=3a225d24d578417598828c68ad569bba" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Kichen 001 </a>  <a href="https://sketchfab.com/you-idea?utm_medium=embed&utm_campaign=share-popup&utm_content=3a225d24d578417598828c68ad569bba" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> </a>  <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=3a225d24d578417598828c68ad569bba" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"></a></p></div>
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Kichen 002" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ccd1ea85e2af41e0be8a26b2c014d810/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/kichen-002-ccd1ea85e2af41e0be8a26b2c014d810?utm_medium=embed&utm_campaign=share-popup&utm_content=ccd1ea85e2af41e0be8a26b2c014d810" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Kichen 002 </a> by <a href="https://sketchfab.com/vm.videodesign?utm_medium=embed&utm_campaign=share-popup&utm_content=ccd1ea85e2af41e0be8a26b2c014d810" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Vitalii Maksiuta </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ccd1ea85e2af41e0be8a26b2c014d810" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+
+
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Room" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6417cbc1870a4a1691cca06912ae0369/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/room-6417cbc1870a4a1691cca06912ae0369?utm_medium=embed&utm_campaign=share-popup&utm_content=6417cbc1870a4a1691cca06912ae0369" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Room </a> by <a href="https://sketchfab.com/anex?utm_medium=embed&utm_campaign=share-popup&utm_content=6417cbc1870a4a1691cca06912ae0369" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Anex </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6417cbc1870a4a1691cca06912ae0369" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Nordic living room with Vray lighting" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b9f6dc4ace8f4edc8e136cb5ec33cc97/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/nordic-living-room-with-vray-lighting-b9f6dc4ace8f4edc8e136cb5ec33cc97?utm_medium=embed&utm_campaign=share-popup&utm_content=b9f6dc4ace8f4edc8e136cb5ec33cc97" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Nordic living room with Vray lighting </a> by <a href="https://sketchfab.com/tarekadhami?utm_medium=embed&utm_campaign=share-popup&utm_content=b9f6dc4ace8f4edc8e136cb5ec33cc97" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> tarekadhami </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b9f6dc4ace8f4edc8e136cb5ec33cc97" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Living room" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0199ee0df2fd401ca67ab8bf7a3af2ec/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/living-room-0199ee0df2fd401ca67ab8bf7a3af2ec?utm_medium=embed&utm_campaign=share-popup&utm_content=0199ee0df2fd401ca67ab8bf7a3af2ec" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Living room </a> by <a href="https://sketchfab.com/flatalex123?utm_medium=embed&utm_campaign=share-popup&utm_content=0199ee0df2fd401ca67ab8bf7a3af2ec" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> BlenderItUp </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=0199ee0df2fd401ca67ab8bf7a3af2ec" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Sitting Room with Baked Textures" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/61fdbbef86b9496d80644492a84c916f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/sitting-room-with-baked-textures-61fdbbef86b9496d80644492a84c916f?utm_medium=embed&utm_campaign=share-popup&utm_content=61fdbbef86b9496d80644492a84c916f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Sitting Room with Baked Textures </a> by <a href="https://sketchfab.com/jimbogies?utm_medium=embed&utm_campaign=share-popup&utm_content=61fdbbef86b9496d80644492a84c916f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> jimbogies </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=61fdbbef86b9496d80644492a84c916f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!--embaded models-->
+
+
+
+<script>
+    function changeModel(modelPath) {
+        // Change the src of the main viewer to the clicked model
+        document.getElementById("mainViewer").setAttribute("src", modelPath);
+    }
+</script>
+
+<script>
+    function toggleFullscreen() {
+        const viewer = document.querySelector('#mainViewer');
+
+        // Check if the model-viewer is in fullscreen mode
+        if (!document.fullscreenElement) {
+            // If not, enter fullscreen
+            if (viewer.requestFullscreen) {
+                viewer.requestFullscreen();
+            } else if (viewer.webkitRequestFullscreen) { // Safari
+                viewer.webkitRequestFullscreen();
+            } else if (viewer.msRequestFullscreen) { // IE/Edge
+                viewer.msRequestFullscreen();
+            }
+        } else {
+            // If in fullscreen, exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { // Safari
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+        }
+    }
+</script>
+
+
+{% endblock %}

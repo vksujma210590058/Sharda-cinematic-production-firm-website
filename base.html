@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>{{base_data_title_for_site}}</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap CSS -->
+
+    <!-- Font Awesome for Icons -->
+
+
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{{base_data_image_for_site.url}}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{base_data_image_for_site.url}}" />
+
+    <style>
+
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            background: url('{{base_data_body_bg_image.url}}') no-repeat center center/cover;
+
+
+
+        }
+
+
+        /* Global Styles */
+
+
+        /* Header Styles */
+        .main-header {
+            position: relative;
+            width: 100%;
+            background: url('{{base_data_header_bg_image.url}}') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            flex-wrap: wrap;
+        }
+
+        .main-header .logo img {
+            width: 150px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-list li {
+            display: inline-block;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            display: block;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .nav-list a:nth-child(1) {
+            background-color: #ff5733;
+        }
+
+        /* Home */
+        .nav-list a:nth-child(2) {
+            background-color: #33a1ff;
+        }
+
+        /* About */
+        .nav-list a:nth-child(3) {
+            background-color: #33ff6e;
+        }
+
+        /* Services */
+        .nav-list a:nth-child(4) {
+            background-color: #ffa733;
+        }
+
+        /* Contact */
+
+        .nav-list a:hover {
+            background-color: #ffd700;
+        }
+
+
+
+        /* Toggle Button Styles */
+        .toggle-btn {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 15px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                background: rgba(0, 0, 0, 0.8);
+                position: absolute;
+                top: 60px;
+                right: 50px;
+                padding: 10px;
+                border-radius: 5px;
+                z-index: 100;
+                display: none;
+                /* Initially hidden */
+            }
+
+            .navbar.active {
+                display: flex;
+                /* Show when active */
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+
+
+            .nav-list {
+                flex-direction: column;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .toggle-btn {
+                display: none;
+            }
+
+
+        }
+
+        /* header finish */
+
+
+
+
+
+
+
+
+
+        /* General Footer Styles */
+        .footer {
+            width: 100%;
+            background: url('{{base_data_footer_bg_image.url}}') no-repeat center center/cover;
+            color: white;
+            padding: 5px;
+            margin-top: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #222;
+            color: #ddd;
+            padding: 20px 0;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer .col {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px;
+        }
+
+        /* Dropdown Title */
+        .dropdown-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 18px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .dropdown-icon {
+            font-size: 18px;
+            color: #ddd;
+            transition: transform 0.3s;
+        }
+
+        /* Collapsible Content */
+        .dropdown-content {
+            display: none;
+            padding: 10px 0;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 19px;
+        }
+
+        .dropdown-content p {
+            margin: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            color: #ff9800;
+        }
+
+        /* Active Dropdown */
+        .active .dropdown-content {
+            display: block;
+        }
+
+        .active .dropdown-icon {
+            transform: rotate(45deg);
+            /* Rotate the '+' to indicate active state */
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .footer .row {
+                flex-direction: column;
+            }
+
+            /* Default: Content collapsed */
+            .dropdown-content {
+                display: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+
+        /* Automatically show content on larger screens */
+            .dropdown-content {
+                display: block;
+            }
+
+            /* Remove dropdown styles for larger screens */
+            .dropdown-title {
+                cursor: default;
+            }
+
+            .dropdown-icon {
+                display: none;
+            }
+        }
+
+
+        /* Floating WhatsApp Icon */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            background-color: #22bb59;
+        }
+
+
+        /* Footer Styling */
+
+
+
+        .floating-calling {
+            position: fixed;
+            bottom: 20px;
+            left:  20px;
+            background-color: #7588f3;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .floating-calling:hover {
+            background-color: #787feb;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+<header class="main-header">
+    <div class="logo">
+        <img src="{{base_data_image_for_site.url}}" alt="Logo">
+    </div>
+    <div class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav class="navbar" id="navbar">
+        <ul class="nav-list">
+            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{% url 'about_us' %}"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="{% url 'services' %}"><i class="fas fa-cogs"></i> Services</a></li>
+            <li><a href="{% url 'contact_us' %}"><i class="fas fa-envelope"></i> Contact</a></li>
+
+
+        </ul>
+
+    </nav>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+{% endblock %}
+<!-- Floating WhatsApp Icon -->
+
+<a href="https://wa.me/{{base_data_whatsapp_number_with_countrycode}}" class="floating-whatsapp" target="_blank"
+   title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+
+
+<a href="tel:{{base_data_mobile_number_with_countrycode}}" class="floating-calling" target="_blank"
+   title="Call Now">
+    <i class="fas fa-phone"></i>
+
+</a>
+
+
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5 class="dropdown-title">
+                    About Us
+                    <span class="dropdown-icon">+</span>
+                </h5>
+                <div class="dropdown-content">
+                    <div class="social-icons">
+                        <p><i class="fas fa-info-circle" style="color:#7d9fea"></i> <a href="#">{{base_data_about_us}}</a></p>
+                        <p><i class="fas fa-home"  style="color:#23e3a0"></i> <a
+                                href="/">home</a></p>
+                        <p><i class="fas fa-users" style="color:#3398da"></i> <a
+                                href="/">Meet Our Team</a> </p>
+                        <p><i class="fas fa-cubes" style="color:#e760db"></i> <a
+                                href="/">A Virtual Tour</a></p>
+                        <p><i class="fas fa-phone" style="color:#789bf6"></i> <a
+                                href="/">Contact Us</a></p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h5 class="dropdown-title">
+                    Contact Us
+                    <span class="dropdown-icon">+</span>
+                </h5>
+                <div class="dropdown-content">
+                    <div class="social-icons">
+                        <p><i class="fas fa-phone" style="color:lightskyblue"></i> <a href="tel:{{base_data_contact_number}}">Cantact</a></p>
+                        <p><i class="fas fa-envelope" style="color:#440ce8"></i> <a
+                                href="mailto:{{base_data_gmail}}">Email</a></p>
+                        <p><i class="fas fa-map-marker-alt"  style="color:#08d37e"></i> <a
+                                href="{{base_data_location_url}}">location</a></p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h5 class="dropdown-title">
+                    Connect with us
+                    <span class="dropdown-icon">+</span>
+                </h5>
+                <div class="dropdown-content">
+                    <div class="social-icons">
+                        <p><i class="fab fa-linkedin" style="color:lightskyblue"></i> <a
+                                href="{{base_data_linkedin}}">Linkedin</a></p>
+                        <p><i class="fab fa-twitter" style="color:lightskyblue"></i> <a
+                                href="{{base_data_twitter}}">Twitter</a></p>
+                        <p><i class="fab fa-youtube" style="color:red"></i> <a
+                                href="{{base_data_youtube}}">Youtube</a></p>
+                        <p><i class="fab fa-instagram" style="color:#e827cc33; "></i> <a
+                                href="{{base_data_instagram}}">Instagram</a></p>
+                        <p><i class="fab fa-facebook" style="color:#5e80f1;"></i> <a href="{{base_data_facebook}}">Facebook</a></p>
+                        <p><i class="fab fa-whatsapp" style="color:#26ef60"></i> <a
+                                href="tel:{{base_data_whatsapp_number_with_countrycode}}">WhatsApp</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center py-3" style="text-align:center;">
+            2024 Make &copy; Someone's Day. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+<script>
+    const toggleBtn = document.getElementById('toggle-btn');
+    const navbar = document.getElementById('navbar');
+
+    toggleBtn.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+    });
+</script>
+
+<script>
+    // Select all dropdown titles
+    const dropdownTitles = document.querySelectorAll('.dropdown-title');
+
+    dropdownTitles.forEach((title) => {
+        title.addEventListener('click', () => {
+            const parent = title.parentElement;
+
+            // Toggle the active class on the clicked title's parent
+            parent.classList.toggle('active');
+
+            // Close other dropdowns if needed (optional)
+            dropdownTitles.forEach((otherTitle) => {
+                if (otherTitle !== title) {
+                    otherTitle.parentElement.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
+<!-- Bootstrap JS and Popper.js -->
+</body>
+
+
+</html>
